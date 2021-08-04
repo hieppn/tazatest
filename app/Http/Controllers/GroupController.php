@@ -35,7 +35,7 @@ class GroupController extends Controller
         $request->validate([
             'admin' => 'required'
         ]);
-        $admin = DB::table('group_user')->where('user_id','=', $request->admin)->where('group_id', $request->group_id)->first();
+        $admin = DB::table('group_user')->where('user_id', '=', $request->admin)->where('group_id', $request->group_id)->first();
         if (is_null($admin)) {
             return response()->json(["message" => "Permission error"], 403);
         }
