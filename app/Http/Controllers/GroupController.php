@@ -17,10 +17,9 @@ class GroupController extends Controller
         $request->validate([
             'name' => 'required|unique:groups'
         ]);
-        $group = Group::create($request->all());
         try {
+            $group = Group::create($request->all());
             $users = collect($request->user_id);
-            $users->push($request->user_id);
             $group->users()->attach($users);
         } catch (\Exception $e) {
             Log::error($e);
