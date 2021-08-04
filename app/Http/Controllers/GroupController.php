@@ -20,7 +20,7 @@ class GroupController extends Controller
         $group = Group::create($request->all());
         try {
             $users = collect($request->user_id);
-            $users->push($request->user_id);
+            //$users->push($request->user_id);
             $group->users()->attach($users);
         } catch (\Exception $e) {
             Log::error($e);
