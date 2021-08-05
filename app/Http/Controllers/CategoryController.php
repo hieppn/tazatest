@@ -11,9 +11,13 @@ class CategoryController extends Controller
 {
     function getAllCategories()
     {
+        $categories = Category::all();
+        foreach ($categories as $category) {
+            $category->products;
+        }
         return response()->json([
             "message" => "success",
-            "categories" => Category::all()
+            "categories" => $categories
         ], 200);
     }
     function getCategory($id)
