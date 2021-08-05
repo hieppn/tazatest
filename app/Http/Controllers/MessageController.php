@@ -19,7 +19,7 @@ class MessageController extends Controller
             return response()->json(["message" => "Group not found!"], 404);
         }
         $user = User::find($request->user_id);
-        $userJoin = DB::table('group_user')->where('user_id', $request->user_id)->get();
+        $userJoin = DB::table('group_user')->where('user_id', $request->user_id)->where('group_id', $request->group_id)->first();
         if (is_null($user)||is_null($userJoin)) {
             return response()->json(["message" => "User not found!"], 404);
         }
