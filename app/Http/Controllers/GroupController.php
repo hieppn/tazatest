@@ -21,6 +21,7 @@ class GroupController extends Controller
             $group = Group::create($request->all());
             $users = collect($request->user_id);
             $group->users()->attach($users);
+            event(new GroupCreated($group));
         } catch (\Exception $e) {
             Log::error($e);
         }

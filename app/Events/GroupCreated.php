@@ -14,18 +14,16 @@ use Illuminate\Queue\SerializesModels;
 class GroupCreated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-
+    public $group;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public $group;
     public function __construct(Group $group)
     {
         $this->group = $group;
     }
-
     /**
      * Get the channels the event should broadcast on.
      *
@@ -33,7 +31,7 @@ class GroupCreated
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('groups.' . Group::find($this->group->group_id)->name);
+        return new PrivateChannel('group.' . $this->group->name);
     }
     public function broadcastAs()
     {
@@ -42,9 +40,9 @@ class GroupCreated
     public function broadcastWith()
     {
         return [
-            'name' => $this->group->name,
-            'user' =>$this->group->user_id,
-            'group' =>$this->group->group_id
+            'message' => $this->group->id,
+            'user' => $this->group->users,
+            'group' => $this->group->name
         ];
     }
 }
